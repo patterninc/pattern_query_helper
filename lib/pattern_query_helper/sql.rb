@@ -57,5 +57,26 @@ module PatternQueryHelper
       results.first
     end
 
+    def self.parse_result_columns(query)
+      selects = query.split(/[Ss][Ee][Ll][Ee][Cc][Tt]/).last.split(/[Ff][Rr][Oo][Mm]/).first.split(",")
+      selects = selects.map{ |c| c.strip}
+      columns = {}
+      selects.each do |s|
+        alias_split = s.split(/ [Aa][Ss] /)
+        table_column_split = s.split(".")
+        if alias_split.length == 2
+          sql_alias = alias_split.last.strip
+          sql = alias_split.first.strip
+        elsif table_column_split.length == 2
+          sql_alias = table_column_split.last.strip
+          sql = s
+        else
+          puts "failed to parse column alias from the following sql select clause '#{s}'"
+        end
+        columns["#{sql_alias}"] = sql if sql_alias
+      end
+      columns
+    end
+
   end
 end

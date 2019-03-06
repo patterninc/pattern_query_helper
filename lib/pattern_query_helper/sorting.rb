@@ -1,6 +1,6 @@
 module PatternQueryHelper
   class Sorting
-    def self.parse_sorting_params(sort)
+    def self.parse_sorting_params(sort, valid_columns)
       sort_sql = []
       if sort
         sorts = sort.split(",")
@@ -8,6 +8,8 @@ module PatternQueryHelper
           column = sort.split(":")[0]
           direction = sort.split(":")[1]
           modifier = sort.split(":")[2]
+
+          #Verify sort column is a valid column to sort by
 
           if direction == "desc"
             case PatternQueryHelper.active_record_adapter

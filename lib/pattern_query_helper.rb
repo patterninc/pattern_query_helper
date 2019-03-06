@@ -8,6 +8,7 @@ require "pattern_query_helper/sql"
 module PatternQueryHelper
 
   def self.run_sql_query(model, query, query_params, query_helpers, single_record=false)
+    PatternQueryHelper::Sql.parse_result_columns(query)
     if single_record
       single_record_sql_query(model, query, query_params, query_helpers)
     elsif query_helpers[:per_page] || query_helpers[:page]
@@ -88,7 +89,7 @@ module PatternQueryHelper
     }
   end
 
-  def self.parse_helpers(params)
+  def self.parse_helpers(params, valid_columns = [])
     filtering = PatternQueryHelper::Filtering.create_filters(params[:filter])
     sorting = PatternQueryHelper::Sorting.parse_sorting_params(params[:sort])
     associations = PatternQueryHelper::Associations.process_association_params(params[:include])
