@@ -1,11 +1,11 @@
-module PatternQueryHelper
+class QueryHelper
   class Associations
     def self.process_association_params(associations)
       associations ||= []
       associations.class == String ? [associations.to_sym] : associations
     end
 
-    def self.load_associations(payload, associations, as_json_options)
+    def self.load_associations(payload:, associations: [], as_json_options: {})
       as_json_options ||= {}
       as_json_options[:include] = as_json_options[:include] || json_associations(associations)
       ActiveRecord::Associations::Preloader.new.preload(payload, associations)

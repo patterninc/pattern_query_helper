@@ -1,17 +1,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "pattern_query_helper/version"
+require "query_helper/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "pattern_query_helper"
-  spec.version       = PatternQueryHelper::VERSION
+  spec.name          = "query_helper"
+  spec.version       = QueryHelper::VERSION
   spec.authors       = ["Evan McDaniel"]
   spec.email         = ["eamigo13@gmail.com"]
 
   spec.summary       = %q{Ruby Gem to help with pagination and data formatting at Pattern, Inc.}
   spec.description   = %q{Ruby gem developed to help with pagination, filtering, sorting, and including associations on both active record queries and custom sql queries}
-  spec.homepage      = "https://github.com/iserve-products/pattern_query_helper"
+  spec.homepage      = "https://github.com/iserve-products/query_helper"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -42,7 +42,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3", "~> 1.3.6"
   spec.add_development_dependency "faker", "~> 1.9.3"
   spec.add_development_dependency "byebug"
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'actionpack'
+  spec.add_development_dependency 'activesupport'
 
   spec.add_dependency "activerecord", "~> 5.0"
-  spec.add_dependency "kaminari", "~> 1.1.1"
+  spec.add_dependency "activesupport", "~> 5.0"
 end
